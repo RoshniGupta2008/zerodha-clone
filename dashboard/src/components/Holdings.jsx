@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
@@ -8,8 +9,7 @@ function Holdings(){
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(()=> {
-    axios.get("http://zerodha-backend-n4yb.onrender.com/addHoldings").then((res)=>{
-      console.log(res.data);
+  axios.get(`${API_URL}/allHoldings`).then((res)=>{
       setAllHoldings(res.data)
     })
   },[]);
@@ -45,7 +45,7 @@ function Holdings(){
 
   return (
     <>
-      <h3 className="title">Holdings ({holdings.length})</h3>
+      <h3 className="title">Holdings ({allholdings.length})</h3>
 
       <div className="order-table">
         <table>
@@ -60,7 +60,7 @@ function Holdings(){
             <th>Day chg.</th>
           </tr>
 
-          {holdings.map((stock, index) => {
+          {allHoldings.map((stock, index) => {
             const curValue = stock.price * stock.qty;
             const isProfit = curValue - stock.avg * stock.qty >= 0.0;
             const profClass = isProfit ? "profit" : "loss";

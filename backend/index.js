@@ -15,7 +15,9 @@ const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL
+}));
 app.use(bodyParser.json());
 // app.get('/addHoldings', async (req, res) => {
 //     let tempHoldings = [

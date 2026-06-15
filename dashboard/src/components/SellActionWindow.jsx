@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,7 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleBuyClick = () => {
-    axios.post("http://zerodha-backend-n4yb.onrender.com/newOrder", {
+    axios.post(`${API_URL}/newOrder`, {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
