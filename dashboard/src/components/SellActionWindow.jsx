@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL;
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -7,6 +7,8 @@ import axios from "axios";
 import GeneralContext from "./GeneralContext";
 
 import "./SellActionWindow.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
