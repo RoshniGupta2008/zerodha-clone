@@ -1,36 +1,32 @@
-
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useContext } from "react";
 import axios from "axios";
-
 import GeneralContext from "./GeneralContext";
-
 import "./SellActionWindow.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const BuyActionWindow = ({ uid }) => {
+const SellActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
 
-  const handleBuyClick = () => {
+  const generalContext = useContext(GeneralContext);
+
+  const handleSellClick = () => {
     axios.post(`${API_URL}/newOrder`, {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
       mode: "SELL",
     });
-
-    GeneralContext.closeBuyWindow();
+    generalContext.closeSellWindow();
   };
 
   const handleCancelClick = () => {
-    GeneralContext.closeBuyWindow();
+    generalContext.closeSellWindow();
   };
 
   return (
-    <div className="container" id="buy-window" draggable="true">
+    <div className="container" id="sell-window" draggable="true">
       <div className="regular-order">
         <div className="inputs">
           <fieldset>
@@ -60,16 +56,16 @@ const BuyActionWindow = ({ uid }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <Link className="btn btn-blue" onClick={handleBuyClick}>
+          <button className="btn btn-blue" onClick={handleSellClick}>
             Sell
-          </Link>
-          <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
+          </button>
+          <button className="btn btn-grey" onClick={handleCancelClick}>
             Cancel
-          </Link>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default BuyActionWindow;
+export default SellActionWindow;
