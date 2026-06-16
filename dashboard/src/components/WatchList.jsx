@@ -14,6 +14,7 @@ import DoughnutChart from './DoughnutChart';
 const labels = watchlist.map((subArray) => subArray['name']);
 
 const WatchList = () => {
+  const [search, setSearch] = useState("");
   const data = {
     labels,
     datasets: [
@@ -77,14 +78,22 @@ const WatchList = () => {
           id="search"
           placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
           className="search"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
         />
         <span className="counts"> {watchlist.length} / 50</span>
       </div>
 
       <ul className="list">
-        {watchlist.map((stock, index) => {
-          return <WatchListItem stock={stock} key={index} />;
-        })}
+
+        {watchlist
+          .filter((stock) =>
+            stock.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((stock, index) => (
+            <WatchListItem stock={stock} key={index} />
+
+          ))}
       </ul>
 
       <DoughnutChart data={data} />
@@ -131,8 +140,8 @@ const WatchListActions = ({ uid }) => {
     generalContext.openBuyWindow(uid);
   };
   const handleSellClick = () => {
-  generalContext.openSellWindow(uid);
-};
+    generalContext.openSellWindow(uid);
+  };
 
   return (
     <span className="actions">
@@ -151,7 +160,7 @@ const WatchListActions = ({ uid }) => {
           placement="top"
           arrow
           TransitionComponent={Grow}
-            onClick={handleSellClick}
+          onClick={handleSellClick}
         >
           <button className="sell">Sell</button>
         </Tooltip>

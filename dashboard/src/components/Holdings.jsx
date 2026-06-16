@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { VerticalGraph } from "./VerticalGraph";
 import { holdings } from "../data/data";
 import { getAllHoldings } from "../services/api";
-
+import PropTypes from 'prop-types';
 
 function Holdings() {
   const [allHoldings, setAllHoldings] = useState([]);
@@ -97,5 +97,8 @@ function Holdings() {
     </>
   );
 }
+Holdings.propTypes = {
+  // Holdings ko props nahi chahiye abhi
+};
 
 export default Holdings;
