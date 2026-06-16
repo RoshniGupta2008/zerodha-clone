@@ -76,10 +76,20 @@ const WatchList = () => {
           type="text"
           name="search"
           id="search"
-          placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
+          placeholder="Search stocks..."
           className="search"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
+          style={{
+            width: "100%",
+            padding: "8px 12px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            fontSize: "14px",
+            outline: "none",
+            backgroundColor: "#fff",
+            color: "#333",
+          }}
         />
         <span className="counts"> {watchlist.length} / 50</span>
       </div>
