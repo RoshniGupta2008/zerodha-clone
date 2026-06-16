@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
+
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
+import { placeOrder } from "../services/api";
 
-const API_URL = import.meta.env.VITE_API_URL;
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
@@ -12,12 +12,7 @@ const BuyActionWindow = ({ uid }) => {
   const generalContext = useContext(GeneralContext);
 
   const handleBuyClick = () => {
-    axios.post(`${API_URL}/newOrder`, {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: "BUY",
-    });
+    placeOrder(uid, stockQuantity, stockPrice, "BUY");
     generalContext.closeBuyWindow();
   };
 

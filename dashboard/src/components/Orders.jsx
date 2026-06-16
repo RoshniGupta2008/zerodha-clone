@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
+import { getAllOrders } from "../services/api";
 
 const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
@@ -9,7 +8,7 @@ const Orders = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API_URL}/allOrders`)
+    getAllOrders()
       .then((res) => {
         setAllOrders(res.data);
         setLoading(false);
@@ -20,8 +19,8 @@ const Orders = () => {
       });
   }, []);
 
-  if (loading) return <h3 style={{padding:"2rem"}}>Loading...</h3>;
-  if (error) return <h3 style={{padding:"2rem", color:"red"}}>{error}</h3>;
+  if (loading) return <h3 style={{ padding: "2rem" }}>Loading...</h3>;
+  if (error) return <h3 style={{ padding: "2rem", color: "red" }}>{error}</h3>;
 
   return (
     <div className="orders">
@@ -43,7 +42,7 @@ const Orders = () => {
                 <td>{order.name}</td>
                 <td>{order.qty}</td>
                 <td>{order.price}</td>
-                <td style={{color: order.mode === "BUY" ? "green" : "red"}}>
+                <td style={{ color: order.mode === "BUY" ? "green" : "red" }}>
                   {order.mode}
                 </td>
               </tr>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import { VerticalGraph } from "./VerticalGraph";
 import { holdings } from "../data/data";
+import { getAllHoldings } from "../services/api";
 
-const API_URL = import.meta.env.VITE_API_URL;
 
 function Holdings() {
   const [allHoldings, setAllHoldings] = useState([]);
@@ -11,7 +11,7 @@ function Holdings() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API_URL}/allHoldings`)
+    getAllHoldings()
       .then((res) => {
         setAllHoldings(res.data);
         setLoading(false);
@@ -22,8 +22,8 @@ function Holdings() {
       });
   }, []);
 
-  if (loading) return <h3 style={{padding:"2rem"}}>Loading...</h3>;
-  if (error) return <h3 style={{padding:"2rem", color:"red"}}>{error}</h3>;
+  if (loading) return <h3 style={{ padding: "2rem" }}>Loading...</h3>;
+  if (error) return <h3 style={{ padding: "2rem", color: "red" }}>{error}</h3>;
 
   const labels = allHoldings.map((stock) => stock.name);
 
