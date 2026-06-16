@@ -3,7 +3,7 @@
 A full-stack stock trading platform clone built with the MERN stack.
 
 ## 🔗 Live Links
-- Frontend: (apna frontend URL daalo)
+- Frontend:  https://zerodha-frontend-jv18.onrender.com
 - Dashboard: https://zerodha-dashboard-6pzb.onrender.com
 - Backend: https://zerodha-backend-n4yb.onrender.com
 
@@ -48,3 +48,8 @@ npm run dev
 ## 🔐 Environment Variables
 
 ### Backend `.env`
+
+MONGO_URL=your_mongodb_connection_string
+FRONTEND_URL=https://zerodha-dashboard-6pzb.onrender.com
+
+VITE_API_URL=https://zerodha-backend-n4yb.onrender.com
