@@ -1,16 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Orders = () => {
+  const [allOrders, setAllOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${API_URL}/allOrders`)
+      .then((res) => {
+        setAllOrders(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Orders load nahi hue, thoda wait karo!");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <h3 style={{padding:"2rem"}}>Loading...</h3>;
+  if (error) return <h3 style={{padding:"2rem", color:"red"}}>{error}</h3>;
+
   return (
     <div className="orders">
-      <div className="no-orders">
-        <p>You haven't placed any orders today</p>
-
-        <Link to={"/"} className="btn">
-          Get started
-        </Link>
-      </div>
+      {allOrders.length === 0 ? (
+        <div className="no-orders">
+          <p>You haven't placed any orders today</p>
+        </div>
+      ) : (
+        <div className="order-table">
+          <table>
+            <tr>
+              <th>Instrument</th>
+              <th>Qty.</th>
+              <th>Price</th>
+              <th>Mode</th>
+            </tr>
+            {allOrders.map((order, index) => (
+              <tr key={index}>
+                <td>{order.name}</td>
+                <td>{order.qty}</td>
+                <td>{order.price}</td>
+                <td style={{color: order.mode === "BUY" ? "green" : "red"}}>
+                  {order.mode}
+                </td>
+              </tr>
+            ))}
+          </table>
+        </div>
+      )}
     </div>
   );
 };

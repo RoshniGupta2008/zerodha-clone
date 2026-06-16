@@ -5,43 +5,38 @@ import { holdings } from "../data/data";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function Holdings(){
+function Holdings() {
   const [allHoldings, setAllHoldings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  useEffect(()=> {
-  axios.get(`${API_URL}/allHoldings`).then((res)=>{
-      setAllHoldings(res.data)
-    })
-  },[]);
-  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  const labels = holdings.map((stock) => stock.name);
+  useEffect(() => {
+    axios.get(`${API_URL}/allHoldings`)
+      .then((res) => {
+        setAllHoldings(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Data load nahi hua, thoda wait karo!");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <h3 style={{padding:"2rem"}}>Loading...</h3>;
+  if (error) return <h3 style={{padding:"2rem", color:"red"}}>{error}</h3>;
+
+  const labels = allHoldings.map((stock) => stock.name);
 
   const data = {
     labels,
     datasets: [
       {
         label: "Stock Price",
-        data: holdings.map((stock) => stock.price),
+        data: allHoldings.map((stock) => stock.price),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
-
-  // export const data = {
-  //   labels,
-  //   datasets: [
-  // {
-  //   label: 'Dataset 1',
-  //   data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  // },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //     },
-  //   ],
-  // };
 
   return (
     <>
@@ -86,15 +81,11 @@ function Holdings(){
 
       <div className="row">
         <div className="col">
-          <h5>
-            29,875.<span>55</span>{" "}
-          </h5>
+          <h5>29,875.<span>55</span></h5>
           <p>Total investment</p>
         </div>
         <div className="col">
-          <h5>
-            31,428.<span>95</span>{" "}
-          </h5>
+          <h5>31,428.<span>95</span></h5>
           <p>Current value</p>
         </div>
         <div className="col">
@@ -106,4 +97,5 @@ function Holdings(){
     </>
   );
 }
+
 export default Holdings;

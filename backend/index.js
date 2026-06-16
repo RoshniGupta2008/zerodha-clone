@@ -196,6 +196,11 @@ app.get("/allPositions", async (req, res) => {
     res.json(allPositions);
 });
 
+app.get('/allOrders', async (req, res) => {
+    let allOrders = await OrdersModel.find({});
+    res.json(allOrders);
+});
+
 app.post('/newOrder', async (req, res) => {
     let newOrder = new OrdersModel({
         name: req.body.name,
