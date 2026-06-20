@@ -5,20 +5,28 @@ const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
 
 const { PositionsModel } = require("./model/PositionsModel");
 const { HoldingsModel } = require('./model/HoldingsModel');
 const { OrdersModel } = require('./model/OrdersModel');
 const { positions } = require('../dashboard/src/data/data.jsx');
+const authRoute = require("./Routes/AuthRoute");
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
 const app = express();
 app.use(cors({
-    origin: process.env.FRONTEND_URL
+    origin: process.env.FRONTEND_URL,
+     credentials: true,
 }));
+
+
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use("/auth", authRoute);
 // app.get('/addHoldings', async (req, res) => {
 //     let tempHoldings = [
 //         {
