@@ -53,3 +53,4 @@ MONGO_URL=your_mongodb_connection_string
 FRONTEND_URL=https://zerodha-dashboard-6pzb.onrender.com
 
 VITE_API_URL=https://zerodha-backend-n4yb.onrender.com
+- JWT based Authentication (Signup, Login, Protected Routes)
