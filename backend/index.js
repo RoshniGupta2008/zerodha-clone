@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 const { PositionsModel } = require("./model/PositionsModel");
 const { HoldingsModel } = require('./model/HoldingsModel');
 const { OrdersModel } = require('./model/OrdersModel');
-const { positions } = require('../dashboard/src/data/data.jsx');
+
 const authRoute = require("./Routes/AuthRoute");
 
 const PORT = process.env.PORT || 3002;
