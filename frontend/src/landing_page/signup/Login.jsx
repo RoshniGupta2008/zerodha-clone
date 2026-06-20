@@ -20,6 +20,9 @@ const Login = () => {
     setError("");
     try {
       const { data } = await axios.post(`${API_URL}/auth/login`, formData);
+
+        console.log("Response:", data);
+      console.log("Dashboard URL:", import.meta.env.VITE_DASHBOARD_URL);
       if (data.success) {
         setSuccess("Login successful! Redirecting...");
         const dashboardUrl = import.meta.env.VITE_DASHBOARD_URL;
