@@ -21,6 +21,7 @@ const app = express();
 app.use(cors({
   origin: [
     process.env.FRONTEND_URL,
+      "https://zerodha-dashboard-6pzb.onrender.com",
     "http://localhost:5173",
     "http://localhost:3000"
   ],
