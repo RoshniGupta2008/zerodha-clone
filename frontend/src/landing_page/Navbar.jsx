@@ -22,10 +22,10 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/signup">SignUp</Link>
                             </li>
-
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/signup">SignUp</Link>
+                                <Link className="nav-link active" to="/login">Login</Link>
                             </li>
+
                             <li className="nav-item">
                                 <Link className="nav-link active" to="/about">About</Link>
                             </li>
